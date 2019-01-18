@@ -35,6 +35,26 @@ ROUTE = [
     {"lat": 53.628, "long": 11.412, 'name': 'Schwerin'},
 ]
 
+
+YEARS=["WS_1998_99",
+"WS_1999_00",
+"WS_2000_01",
+"WS_2001_02",
+"WS_2002_03",
+"WS_2003_04",
+"WS_2004_05",
+"WS_2005_06",
+"WS_2006_07",
+"WS_2007_08",
+"WS_2008_09",
+"WS_2009_10",
+"WS_2010_11",
+"WS_2011_12",
+"WS_2012_13",
+"WS_2013_14",
+"WS_2014_15",
+"WS_2015_16",
+"WS_2016_17"]
 # This is the template for the API call:
 # https://api.mapbox.com/directions/v5/mapbox/driving/{GEO_COORDINATES_LIST}.json?access_token={MAPBOX_ACCESS_TOKEN}&overview=full&geometries=geojson
 
@@ -65,10 +85,10 @@ ROUTE = [
 #
 #     return route_data
 
-with open('../../geo_germany.geojson') as data_file:
+with open('data/geo_germany.geojson') as data_file:
     state_geo = json.load(data_file)
 
-df = pd.read_excel('../../clean_data/students_bundesland_gender_foreigner_ws1998_99_ws2016_17.xlsx')
+df = pd.read_excel('data/students_bundesland_gender_foreigner_ws1998_99_ws2016_17.xlsx')
 
 ws_1998_99 = df[df.Semester == 'WS_1998_99']
 ws_1999_00 = df[df.Semester == 'WS_1999_00']
@@ -118,4 +138,4 @@ def mapbox_js(year='WS_1998_99'):
                       bins=[df_year['Insgesamt, Insgesamt'].min(), 100000, 200000, 300000, 400000,
                             df_year['Insgesamt, Insgesamt'].max() + 1])
 
-    return render_template('index.html', year=year)
+    return render_template('index.html', year=year, years=YEARS)
